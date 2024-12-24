@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://b533p6wrwgxuq"]
+
+[ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="1_l1su7"]
+[ext_resource type="Script" path="res://Hazards/hazard.gd" id="1_w48io"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymav"]
+size = Vector2(92, 81)
+
+[node name="Hazard" type="StaticBody2D" groups=["hazard"]]
+collision_mask = 3
+script = ExtResource("1_w48io")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-1, -9)
+scale = Vector2(0.75, 0.703125)
+texture = ExtResource("1_l1su7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -12)
+shape = SubResource("RectangleShape2D_1ymav")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 75)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="Raycasts"]
+rotation = 1.5708
+target_position = Vector2(0, 75)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D4" type="RayCast2D" parent="Raycasts"]
+rotation = -1.5708
+target_position = Vector2(0, 75)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="Raycasts"]
+rotation = 3.14159
+target_position = Vector2(0, 75)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="Overlap" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overlap"]
+visible = false
+position = Vector2(-1, -10)
+shape = SubResource("RectangleShape2D_1ymav")

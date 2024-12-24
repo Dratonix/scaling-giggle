@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://2qrjaarytk5"]
+
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_j8ivu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5dw71"]
+
+[node name="Hazard" instance=ExtResource("1_j8ivu")]
+block_type = 1
+
+[node name="Icon" parent="." index="0"]
+material = SubResource("CanvasItemMaterial_5dw71")
+
+[node name="CollisionShape2D" parent="." index="1"]
+debug_color = Color(0.926772, 0.158168, 0.547833, 0.42)

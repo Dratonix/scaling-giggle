@@ -1,0 +1,143 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5i1nvdyrs4ry"]
+
+[ext_resource type="Script" path="res://Levels/test_level.gd" id="1_2k68t"]
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="2_2ylua"]
+[ext_resource type="Script" path="res://Hazards/hazard.gd" id="3_0w7r7"]
+[ext_resource type="PackedScene" uid="uid://2qrjaarytk5" path="res://Hazards/test_hazard.tscn" id="3_vv1ix"]
+[ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="4_q3o5t"]
+[ext_resource type="PackedScene" uid="uid://dcn7cabtuwkc" path="res://player/player.tscn" id="6_aofh7"]
+
+[sub_resource type="GDScript" id="GDScript_6s8r1"]
+script/source = "extends Button
+
+@export var blocks : int
+@export var scene : PackedScene
+@export var block_type : int
+
+
+func _ready() -> void:
+	self.connect(\"button_down\", _button_down)
+	Events.connect(\"dragging\", _dragging)
+	Events.connect(\"drag_ended\",_drag_finish)
+	Events.connect(\"block_deleted\", _block_del)
+	
+func _button_down() -> void:
+	if blocks <= 0:
+		return
+	Events.block_scene = scene
+	Events.emit_signal(\"add_block\")
+	blocks-=1
+func _dragging() -> void:
+	disabled=true
+	print('r')
+func _drag_finish() -> void:
+	disabled = false
+func _block_del() -> void:
+	if Events.block_type != block_type:
+		return
+	self.blocks += 1
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymav"]
+size = Vector2(92, 81)
+
+[sub_resource type="PackedScene" id="PackedScene_lnk67"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Hazard", "collision_mask", "script", "hazard", "StaticBody2D", "Icon", "position", "scale", "texture", "Sprite2D", "CollisionShape2D", "shape", "Timer", "wait_time", "Raycasts", "Node2D", "RayCast2D", "target_position", "collide_with_areas", "RayCast2D2", "rotation", "RayCast2D4", "RayCast2D3", "Overlap", "Area2D", "visible"),
+"node_count": 11,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 2, 1, 0, 2, 1, 1, 3, 0, 0, 9, 5, -1, 3, 6, 2, 7, 3, 8, 4, 0, 0, 0, 10, 10, -1, 2, 6, 5, 11, 6, 0, 0, 0, 12, 12, -1, 1, 13, 7, 0, 0, 0, 15, 14, -1, 0, 0, 4, 0, 16, 16, -1, 3, 17, 8, 1, 0, 18, 9, 0, 4, 0, 16, 19, -1, 4, 20, 10, 17, 8, 1, 0, 18, 9, 0, 4, 0, 16, 21, -1, 4, 20, 11, 17, 8, 1, 0, 18, 9, 0, 4, 0, 16, 22, -1, 4, 20, 12, 17, 8, 1, 0, 18, 9, 0, 0, 0, 24, 23, -1, 0, 0, 9, 0, 10, 10, -1, 3, 25, 13, 6, 5, 11, 6, 0),
+"variants": [3, ExtResource("3_0w7r7"), Vector2(-6, -14), Vector2(0.75, 0.703125), ExtResource("4_q3o5t"), Vector2(-6, -11.5), SubResource("RectangleShape2D_1ymav"), 2.0, Vector2(0, 75), true, 1.5708, -1.5708, 3.14159, false],
+"version": 3
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fbj3"]
+size = Vector2(1053, 136)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_2k68t")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 432.0
+offset_right = 1153.0
+offset_bottom = 649.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 121.0
+offset_right = 57.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.417859, 0.186068, 0.223348, 1)
+
+[node name="Buttons" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control/Buttons"]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 116.0
+offset_right = 836.0
+offset_bottom = 229.0
+script = SubResource("GDScript_6s8r1")
+blocks = 10
+scene = ExtResource("2_2ylua")
+
+[node name="Button3" type="Button" parent="Control/Buttons"]
+layout_mode = 0
+offset_left = 977.0
+offset_top = 130.0
+offset_right = 1109.0
+offset_bottom = 243.0
+script = SubResource("GDScript_6s8r1")
+blocks = 10
+scene = ExtResource("3_vv1ix")
+block_type = 1
+
+[node name="Button2" type="Button" parent="Control/Buttons"]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 129.0
+offset_right = 471.0
+offset_bottom = 242.0
+script = SubResource("GDScript_6s8r1")
+blocks = 10
+scene = SubResource("PackedScene_lnk67")
+block_type = 2
+
+[node name="placable" type="StaticBody2D" parent="."]
+position = Vector2(565, 343)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="placable"]
+position = Vector2(-1.5, 7)
+shape = SubResource("RectangleShape2D_1fbj3")
+
+[node name="Icon" type="Sprite2D" parent="placable"]
+position = Vector2(-6, -7)
+scale = Vector2(8.9375, 1)
+texture = ExtResource("4_q3o5t")
+
+[node name="Player" parent="." instance=ExtResource("6_aofh7")]
+position = Vector2(379, 104)
+
+[connection signal="button_down" from="Control/Buttons/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Control/Buttons/Button" to="Control/Buttons/Button" method="_on_button_down"]
+[connection signal="button_down" from="Control/Buttons/Button3" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Control/Buttons/Button3" to="Control/Buttons/Button3" method="_on_button_down"]
+[connection signal="button_down" from="Control/Buttons/Button2" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Control/Buttons/Button2" to="Control/Buttons/Button2" method="_on_button_down"]

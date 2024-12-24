@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcn7cabtuwkc"]
+
+[ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="1_au4du"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_g4400"]
+[ext_resource type="Script" path="res://player/player_movement.gd" id="2_debv5"]
+
+[sub_resource type="Resource" id="Resource_manse"]
+script = ExtResource("2_debv5")
+speed = 100.0
+acceleration = 800.0
+friction = 1000.0
+jump_velocity = -300.0
+gravity_scale = 1.0
+air_resistance = 200.0
+air_acceleration = 400.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hppvj"]
+size = Vector2(96, 86)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ocfvi"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_g4400")
+movement_data = SubResource("Resource_manse")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(2.02149e-06, 0.665156, 0.503268, 1)
+position = Vector2(-23, -21.5)
+scale = Vector2(0.734375, 0.695312)
+texture = ExtResource("1_au4du")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-24, -21)
+shape = SubResource("RectangleShape2D_hppvj")
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="WallJumpTimer" type="Timer" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("SegmentShape2D_ocfvi")
+
+[node name="I-Frames" type="Timer" parent="."]
