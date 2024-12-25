@@ -22,7 +22,6 @@ func _ready() -> void:
 	state = tile_state.ENDING
 	timer.connect("timeout",_timeout)
 	timer.emit_signal("timeout")
-	overlap.connect("input_event", _on_input_event)
 
 func _process(delta: float) -> void:
 	match state:
@@ -46,7 +45,7 @@ func _process(delta: float) -> void:
 		tile_state.FINISHED:
 			Events.emit_signal("drag_ended")
 			if Input.is_action_just_pressed("rmb"):
-				self.connect("input_event", _on_input_event)
+				pass
 func set_stats() -> void:
 	pass
 
@@ -81,7 +80,8 @@ func verify_overlap() -> bool:
 		
 
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+
+func _on_mouse_detector_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and state==tile_state.FINISHED:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			print("something")

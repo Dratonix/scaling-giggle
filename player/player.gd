@@ -13,6 +13,8 @@ var was_wall_normal = Vector2.ZERO
 @onready var wall_jump_timer = $WallJumpTimer
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().reload_current_scene()
 	apply_gravity(delta)
 	#handle_wall_jump()
 	handle_jump()

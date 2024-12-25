@@ -20,7 +20,7 @@ position = Vector2(-1, -12)
 shape = SubResource("RectangleShape2D_1ymav")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 
 [node name="Raycasts" type="Node2D" parent="."]
 
@@ -53,3 +53,15 @@ collide_with_areas = true
 visible = false
 position = Vector2(-1, -10)
 shape = SubResource("RectangleShape2D_1ymav")
+
+[node name="MouseDetector" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -48.0
+offset_top = -53.0
+offset_right = 46.0
+offset_bottom = 35.0
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="gui_input" from="MouseDetector" to="." method="_on_mouse_detector_gui_input"]
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
