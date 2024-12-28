@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5i1nvdyrs4ry"]
+[gd_scene load_steps=9 format=3 uid="uid://b5i1nvdyrs4ry"]
 
 [ext_resource type="Script" path="res://Levels/test_level.gd" id="1_2k68t"]
 [ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="2_2ylua"]
+[ext_resource type="Script" path="res://Levels/buttons.py" id="2_cbhuy"]
 [ext_resource type="PackedScene" uid="uid://2qrjaarytk5" path="res://Hazards/test_hazard.tscn" id="3_vv1ix"]
 [ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="4_q3o5t"]
 [ext_resource type="PackedScene" uid="uid://dcn7cabtuwkc" path="res://player/player.tscn" id="6_aofh7"]
@@ -67,6 +68,11 @@ color = Color(0.417859, 0.186068, 0.223348, 1)
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("2_cbhuy")
+test_int = 5
+test_float = 5.2
+test_bool = true
+test_vector = Vector3(1, 2, 3)
 
 [node name="Button" type="Button" parent="Control/Buttons"]
 layout_mode = 0
