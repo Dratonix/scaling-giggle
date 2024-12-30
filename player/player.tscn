@@ -23,7 +23,7 @@ move_right = "p1_move_right"
 jump = "p1_jump"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hppvj"]
-size = Vector2(17, 14)
+size = Vector2(51, 52)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ocfvi"]
 
