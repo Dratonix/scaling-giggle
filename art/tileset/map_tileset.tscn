@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="layer_0_tileset.tscn" type="PackedScene" id=0]
+
+[node name="map_tileset" type="Node2D"]
+[node name="0_Unnamed Layer" parent="." instance=ExtResource( 0 )]
