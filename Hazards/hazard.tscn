@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://Hazards/hazard.gd" id="1_w48io"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymav"]
-size = Vector2(144, 128.5)
+size = Vector2(130, 128.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ac02e"]
-size = Vector2(20, 14)
+size = Vector2(64, 61)
 
 [node name="Hazard" type="StaticBody2D" groups=["hazard"]]
 collision_mask = 3
@@ -16,12 +16,12 @@ grid_size = 8
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-1, -9)
-scale = Vector2(0.133, 0.125)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_l1su7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -9.03125)
-scale = Vector2(0.125, 0.125)
+position = Vector2(-1, -7)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_1ymav")
 
 [node name="Timer" type="Timer" parent="."]
@@ -30,42 +30,46 @@ wait_time = 0.5
 [node name="Raycasts" type="Node2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(0, 10)
-collision_mask = 3
+target_position = Vector2(0, 35)
+collision_mask = 2
 collide_with_areas = true
 
 [node name="RayCast2D2" type="RayCast2D" parent="Raycasts"]
 rotation = 1.5708
-target_position = Vector2(0, 10)
-collision_mask = 3
+target_position = Vector2(0, 35)
+collision_mask = 2
 collide_with_areas = true
 
 [node name="RayCast2D4" type="RayCast2D" parent="Raycasts"]
 rotation = -1.5708
-target_position = Vector2(0, 10)
-collision_mask = 3
+target_position = Vector2(0, 40)
+collision_mask = 2
 collide_with_areas = true
 
 [node name="RayCast2D3" type="RayCast2D" parent="Raycasts"]
 rotation = 3.14159
-target_position = Vector2(0, 10)
-collision_mask = 3
+target_position = Vector2(0, 35)
+collision_mask = 2
 collide_with_areas = true
 
 [node name="Overlap" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Overlap"]
-position = Vector2(0, -8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overlap" groups=["hazard"]]
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_ac02e")
 
 [node name="MouseDetector" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -10.0
-offset_top = -16.0
-offset_right = 9.0
-offset_bottom = 2.0
+offset_left = -34.0
+offset_top = -40.0
+offset_right = 34.0
+offset_bottom = 25.0
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
+[node name="Effect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Effect" groups=["hazard"]]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_ac02e")
+
 [connection signal="gui_input" from="MouseDetector" to="." method="_on_mouse_detector_gui_input"]
-[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://qvgn0vk3d8d7"]
+
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_h3hss"]
+[ext_resource type="Script" path="res://Hazards/bouncepad.gd" id="2_vfoxn"]
+
+[node name="Ice" instance=ExtResource("1_h3hss")]
+collision_mask = 7
+script = ExtResource("2_vfoxn")
+effect = 5000
+grid_size = 32
+
+[node name="Timer2" type="Timer" parent="." index="7"]
+wait_time = 0.2
+
+[connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]
+[connection signal="body_exited" from="Effect" to="." method="_on_effect_body_exited"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cetfjy7mo67yk"]
+
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_fys5p"]
+[ext_resource type="Script" path="res://Hazards/switch.gd" id="2_kh8nq"]
+
+[node name="Switch" instance=ExtResource("1_fys5p")]
+script = ExtResource("2_kh8nq")
+grid_size = 32
+
+[connection signal="area_entered" from="Effect" to="." method="_on_effect_area_entered"]
+[connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba5f2r7jjig5o"]
+
+[ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="1_p5owc"]
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="2_x0rcb"]
+
+[sub_resource type="GDScript" id="GDScript_6s8r1"]
+script/source = "extends TextureButton
+
+@export var blocks : int
+@export var scene : PackedScene
+@export var block_type : int
+
+
+func _ready() -> void:
+	self.connect(\"button_down\", _button_down)
+	Events.connect(\"dragging\", _dragging)
+	Events.connect(\"drag_ended\",_drag_finish)
+	Events.connect(\"block_deleted\", _block_del)
+	
+func _button_down() -> void:
+	if blocks <= 0:
+		return
+	Events.block_scene = scene
+	Events.emit_signal(\"add_block\")
+	blocks-=1
+func _dragging() -> void:
+	disabled=true
+func _drag_finish() -> void:
+	disabled = false
+func _block_del() -> void:
+	if Events.block_type != block_type:
+		return
+	self.blocks += 1
+"
+
+[node name="Button" type="TextureButton"]
+texture_normal = ExtResource("1_p5owc")
+script = SubResource("GDScript_6s8r1")
+blocks = 3
+scene = ExtResource("2_x0rcb")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://wqlima43jeqt"]
+
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_5fyqy"]
+[ext_resource type="Script" path="res://Hazards/spike.gd" id="1_ivv8q"]
+
+[node name="Spike" instance=ExtResource("1_5fyqy")]
+script = ExtResource("1_ivv8q")
+grid_size = 32
+
+[node name="CollisionShape2D" parent="." index="1"]
+debug_color = Color(0.900001, 0.230769, 0.534841, 0.42)
+
+[connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]

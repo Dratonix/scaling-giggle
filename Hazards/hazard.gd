@@ -18,12 +18,14 @@ enum tile_state{
 var state
 
 func _ready() -> void:
-	set_stats()
-	state = tile_state.ENDING
-	timer.connect("timeout",_timeout)
-	timer.emit_signal("timeout")
+	signals()
 
 func _process(delta: float) -> void:
+	state_machine()
+func set_stats() -> void:
+	pass
+
+func state_machine() -> void:
 	match state:
 		tile_state.DRAGGING:
 			Events.emit_signal("dragging")
@@ -46,10 +48,13 @@ func _process(delta: float) -> void:
 			Events.emit_signal("drag_ended")
 			if Input.is_action_just_pressed("rmb"):
 				pass
-func set_stats() -> void:
-	pass
 
 
+func signals() -> void:
+	set_stats()
+	state = tile_state.ENDING
+	timer.connect("timeout",_timeout)
+	timer.emit_signal("timeout")
 func _timeout() -> void:
 	state = tile_state.DRAGGING
 
@@ -61,8 +66,8 @@ func verify() -> bool:
 			var collider = raycast.get_collider()
 			
 			# Check if the collider is of type 'placeable' (you could use a custom group or a class type check)
-			if "placable" in collider.name:
-				return true  # This is a valid placeable object
+#			if "placable" in collider.name:
+			return true  # This is a valid placeable object
 			print(collider.name)
 			# If the collider is of type "Hazard" or "Static", then return false
 
@@ -74,7 +79,7 @@ func verify_overlap() -> bool:
 	for body in Overlap:
 		if body == self:
 			continue
-		if "Hazard" in body.name or "Static" in body.name:
+		if body.is_in_group("hazard"):
 			return false
 	return true
 		

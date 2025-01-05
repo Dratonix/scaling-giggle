@@ -354,6 +354,7 @@ func _build_play_area() -> void:
 	
 	# Reparent each player to the play area.
 	for i in range(players.size()):
+		print(players.size())
 		var player := players[i]
 		var camera := cameras[i]
 		var viewport := viewports[i]

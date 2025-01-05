@@ -7,13 +7,21 @@ var air_jump = false
 var just_wall_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var was_wall_normal = Vector2.ZERO
+var start_position : int
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var starting_position = global_position
 @onready var wall_jump_timer = $WallJumpTimer
+@onready var timer := $Timer
+
+func _ready() -> void:
+	starting_position = position
+	#movement_data=load("res://player/no_move.tres")
+	#what if i went to event bus and created signals for everything that would be rly funny ngl 
 
 func _physics_process(delta):
+	#position=Vector2.ZERO
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().reload_current_scene()
 	apply_gravity(delta)
@@ -99,3 +107,13 @@ func _on_hazard_detector_area_entered(area):
 
 func set_movement_data() -> void:
 	movement_data.acceleration
+	
+func _bounce() -> void:
+	var old_gravity =gravity
+	gravity = 0
+	timer.start(.2)
+	
+
+
+func _on_timer_timeout() -> void:
+	gravity= ProjectSettings.get_setting("physics/2d/default_gravity")
