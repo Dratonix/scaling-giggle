@@ -1,33 +1,46 @@
 extends Node
 
-@export var viewport_size = Vector2i(960,540)
+@export var viewport_size = Vector2i(1200,675)
 @onready var players := {
 	"1": {
-		container = $SubViewportContainer,
-		viewport = $SubViewportContainer/ViewPort,
-		camera = $SubViewportContainer/ViewPort/Camera1,
-		player = $SubViewportContainer/ViewPort/Level1/Player
+		container = $HBoxContainer/SubViewportContainer,
+		viewport = $HBoxContainer/SubViewportContainer/ViewPort,
+		camera = $HBoxContainer/SubViewportContainer/ViewPort/Camera1,
+		player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Players/Player
 	},
 	"2":
 		{
-		container = $SubViewportContainer2,
-		viewport = $SubViewportContainer2/ViewPort,
-		camera = $SubViewportContainer2/ViewPort/Camera2D,
-		player = $SubViewportContainer/ViewPort/Level1/Player2
+		container = $HBoxContainer/SubViewportContainer2,
+		viewport = $HBoxContainer/SubViewportContainer2/ViewPort,
+		camera = $HBoxContainer/SubViewportContainer2/ViewPort/Camera2D,
+		player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Players/Player2
 		},
 	"3":
 		{
-		container = $SubViewportContainer3,
-		viewport = $SubViewportContainer3/ViewPort,
-		camera = $SubViewportContainer3/ViewPort/Camera2D,
-		player = $SubViewportContainer/ViewPort/Level1/Player3
+		container = $HBoxContainer/SubViewportContainer3,
+		viewport = $HBoxContainer/SubViewportContainer3/ViewPort,
+		camera = $HBoxContainer/SubViewportContainer3/ViewPort/Camera2D,
+		player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Players/Player3
 		}
 }
 
 func _ready() -> void: 
+	print(players)
 	Events.connect("controller_ended", control_end)
+
+func control_end():
+	print("KKKKK")
+	#viewport_size.x /= Events.num_player
+
+func _on_button_button_down() -> void:
+	print("KKKKK")
+	viewport_size.x /= Events.num_player
+	create_split()
+
+func create_split()->void:
 	if Events.num_player != 0:
-		viewport_size.x = viewport_size.x / Events.num_player
+		pass
+		#viewport_size.x = viewport_size.x / Events.num_player
 	print(viewport_size)
 	match  Events.num_player:
 		0:
@@ -47,7 +60,7 @@ func _ready() -> void:
 			
 	var i = 0
 	for node in players.values():
-		return
+		#return
 		if Events.num_player == 0:
 			return
 		node.viewport.size = viewport_size
@@ -58,29 +71,3 @@ func _ready() -> void:
 		i+=1
 		print(node.viewport.size)
 		
-func control_end():
-	pass
-func set_play():
-		var players := {
-		"1": {
-			container = $HBoxContainer/SubViewportContainer,
-			viewport = $HBoxContainer/SubViewportContainer/ViewPort,
-			camera = $HBoxContainer/SubViewportContainer/ViewPort/Camera1,
-			player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Player
-		},
-		"2":
-			{
-			container = $HBoxContainer/SubViewportContainer2,
-			viewport = $HBoxContainer/SubViewportContainer2/ViewPort,
-			camera = $HBoxContainer/SubViewportContainer2/ViewPort/Camera2D,
-			player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Player2
-			},
-		"3":
-			{
-			container = $HBoxContainer/SubViewportContainer3,
-			viewport = $HBoxContainer/SubViewportContainer3/ViewPort,
-			camera = $HBoxContainer/SubViewportContainer3/ViewPort/Camera2D,
-			player = $HBoxContainer/SubViewportContainer/ViewPort/Level1/Player3
-			}
-	}
-		return players

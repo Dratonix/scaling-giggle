@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://qvgn0vk3d8d7"]
+
+[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_f0iw1"]
+[ext_resource type="Script" path="res://Hazards/ice.gd" id="2_v3e5s"]
+[ext_resource type="Texture2D" uid="uid://cfi643v2qstgo" path="res://Platformer/Ice.png" id="3_1p1u2"]
+
+[node name="Ice" instance=ExtResource("1_f0iw1")]
+collision_mask = 7
+script = ExtResource("2_v3e5s")
+effect = 5000
+
+[node name="Icon" parent="." index="0"]
+position = Vector2(-150.5, -112)
+scale = Vector2(0.134375, 0.125)
+texture = ExtResource("3_1p1u2")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-147.5, -111)
+
+[node name="Raycasts" parent="." index="3"]
+position = Vector2(-151, -110)
+
+[node name="CollisionShape2D" parent="Overlap" index="0"]
+position = Vector2(-151, -112)
+
+[node name="MouseDetector" parent="." index="5"]
+offset_left = -185.0
+offset_top = -146.0
+offset_right = -117.0
+offset_bottom = -81.0
+
+[node name="CollisionShape2D" parent="Effect" index="0"]
+position = Vector2(-152, -111)
+
+[node name="Timer2" type="Timer" parent="." index="7"]
+wait_time = 0.2
+
+[connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]
+[connection signal="body_exited" from="Effect" to="." method="_on_effect_body_exited"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

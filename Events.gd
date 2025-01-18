@@ -10,4 +10,4 @@ signal switch_active
 #Variabls
 @export var block_type : int
 @export var block_scene : PackedScene
-@export var num_player : int = 0
+@export var num_player : int = 3

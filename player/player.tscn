@@ -1,42 +1,51 @@
 [gd_scene load_steps=7 format=3 uid="uid://dcn7cabtuwkc"]
 
-[ext_resource type="Texture2D" uid="uid://c00ih52oker70" path="res://icon.svg" id="1_au4du"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_g4400"]
-[ext_resource type="Resource" uid="uid://b33tbmyk701pq" path="res://player/default_movement.tres" id="2_krae7"]
+[ext_resource type="Resource" uid="uid://b33tbmyk701pq" path="res://player/movement/default_movement.tres" id="2_krae7"]
 [ext_resource type="Resource" uid="uid://bck8g2l1e2ywa" path="res://player/Controls/player1_controls.tres" id="3_00w2t"]
+[ext_resource type="Texture2D" uid="uid://brqominjy8ds1" path="res://Platformer/Idle.png" id="4_mu627"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hppvj"]
-size = Vector2(51, 52)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8fib8"]
+radius = 15.5
+height = 102.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ocfvi"]
 
 [node name="Player" type="CharacterBody2D" groups=["playe"]]
-collision_mask = 7
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_g4400")
 movement_data = ExtResource("2_krae7")
 control_data = ExtResource("3_00w2t")
 
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(2.02149e-06, 0.665156, 0.503268, 1)
+[node name="Idle" type="Sprite2D" parent="."]
+position = Vector2(-1, -6)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_au4du")
+texture = ExtResource("4_mu627")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_hppvj")
+shape = SubResource("CapsuleShape2D_8fib8")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.1
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 
 [node name="WallJumpTimer" type="Timer" parent="."]
+wait_time = 0.25
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-7, -5)
 shape = SubResource("SegmentShape2D_ocfvi")
 
 [node name="I-Frames" type="Timer" parent="."]
+wait_time = 0.2
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

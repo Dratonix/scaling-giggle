@@ -8,6 +8,7 @@ var just_wall_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var was_wall_normal = Vector2.ZERO
 var start_position : int
+var bounce : bool = false
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
@@ -19,13 +20,14 @@ func _ready() -> void:
 	starting_position = position
 	#movement_data=load("res://player/no_move.tres")
 	#what if i went to event bus and created signals for everything that would be rly funny ngl 
-
+	print(control_data)
 func _physics_process(delta):
+	
 	#position=Vector2.ZERO
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().reload_current_scene()
 	apply_gravity(delta)
-	#handle_wall_jump()
+	handle_wall_jump()
 	handle_jump()
 	var input_axis = Input.get_axis(control_data.move_left, control_data.move_right)
 	handle_acceleration(input_axis, delta)
@@ -54,10 +56,17 @@ func handle_wall_jump():
 	var wall_normal = get_wall_normal() 
 	if wall_jump_timer.time_left > 0.0:
 		wall_normal = was_wall_normal
-	if Input.is_action_just_pressed(control_data.jump):
+	if Input.is_action_just_pressed(control_data.jump) and is_on_wall_only():
 		velocity.x = wall_normal.x * movement_data.speed
 		velocity.y = movement_data.jump_velocity
 		just_wall_jumped = true
+	elif not is_on_wall() :
+		if Input.is_action_just_released(control_data.jump) and velocity.y < movement_data.jump_velocity / 2:
+			velocity.y = movement_data.jump_velocity / 2
+		
+		if Input.is_action_just_pressed(control_data.jump) and air_jump and not just_wall_jumped :
+			velocity.y = movement_data.jump_velocity * 0.8
+			air_jump = false
 
 func handle_jump():
 	if is_on_floor(): air_jump = true
@@ -66,11 +75,11 @@ func handle_jump():
 		if Input.is_action_pressed(control_data.jump):
 			velocity.y = movement_data.jump_velocity
 			coyote_jump_timer.stop()
-	elif not is_on_floor():
+	elif not is_on_floor() :
 		if Input.is_action_just_released(control_data.jump) and velocity.y < movement_data.jump_velocity / 2:
 			velocity.y = movement_data.jump_velocity / 2
 		
-		if Input.is_action_just_pressed(control_data.jump) and air_jump and not just_wall_jumped:
+		if Input.is_action_just_pressed(control_data.jump) and air_jump and not just_wall_jumped :
 			velocity.y = movement_data.jump_velocity * 0.8
 			air_jump = false
 
@@ -110,10 +119,35 @@ func set_movement_data() -> void:
 	
 func _bounce() -> void:
 	var old_gravity =gravity
-	gravity = 0
-	timer.start(.2)
-	
-
+	#ddddddddgravity = 0
+	#timer.start(.2)
+	velocity.y -= 200
+	#gravity=ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _on_timer_timeout() -> void:
+	velocity.y -= 200
 	gravity= ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func reset() -> void:
+	#play animation
+	position=starting_position
+
+
+func _on_bouncepad_body_entered(body: Node2D) -> void:
+	print(body)
+
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	if area.is_in_group('bounce'):
+		await _ready
+		velocity.y = movement_data.jump_velocity * 1.3
+		if Input.is_action_just_pressed(control_data.jump) and air_jump and not just_wall_jumped :
+			velocity.y = movement_data.jump_velocity * 0.8
+			air_jump = false
+
+func _reset() -> void:
+	visible = false
+	movement_data = load("res://player/movement/no_move.tres")
+	position = starting_position
+	visible = true
+	movement_data = load("res://player/movement/default_movement.tres")

@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://c4acuexryjq6s"
+path="res://.godot/imported/switch_block_square.gif-d45cc2962936909ecc50a0c7aa1efe10.tres"
+
+[deps]
+
+source_file="res://Platformer/switch_block_square.gif"
+dest_files=["res://.godot/imported/switch_block_square.gif-d45cc2962936909ecc50a0c7aa1efe10.tres"]
+
+[params]
+
+frames_per_second=30

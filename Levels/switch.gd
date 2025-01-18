@@ -7,4 +7,4 @@ func _ready() -> void:
 	collision_enabled=coll
 func switch_active() -> void:
 	visible=!visible
-	collision_enabled=false
+	collision_enabled=!collision_enabled

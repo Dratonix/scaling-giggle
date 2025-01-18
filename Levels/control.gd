@@ -9,7 +9,12 @@ func _process(delta: float) -> void:
 	if position.x > 1000:
 		position.x = 1000
 	
-func _ready() -> void:
-	Events.connect("controller_ended", controller_end)
+
 func controller_end() -> void:
+	queue_free()
+
+
+func _on_button_button_down() -> void:
+	Events.emit_signal("controller_ended")
+	print("fnaum tax")
 	queue_free()

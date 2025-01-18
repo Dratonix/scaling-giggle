@@ -1,13 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://wqlima43jeqt"]
+[gd_scene load_steps=4 format=3 uid="uid://wqlima43jeqt"]
 
 [ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_5fyqy"]
 [ext_resource type="Script" path="res://Hazards/spike.gd" id="1_ivv8q"]
+[ext_resource type="Texture2D" uid="uid://30s6nabb8yv1" path="res://Platformer/Spikes.png" id="3_fd7oy"]
 
 [node name="Spike" instance=ExtResource("1_5fyqy")]
+position = Vector2(0, 0)
+collision_layer = 0
 script = ExtResource("1_ivv8q")
-grid_size = 32
+
+[node name="Icon" parent="." index="0"]
+position = Vector2(0, 0)
+scale = Vector2(0.25, 0.1)
+texture = ExtResource("3_fd7oy")
+hframes = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(3, 8)
 debug_color = Color(0.900001, 0.230769, 0.534841, 0.42)
+
+[node name="Raycasts" parent="." index="3"]
+position = Vector2(1, 37)
+
+[node name="RayCast2D" parent="Raycasts" index="0"]
+position = Vector2(0, -17)
+target_position = Vector2(0, 15)
+
+[node name="RayCast2D2" parent="Raycasts" index="1"]
+position = Vector2(-11, -30)
+target_position = Vector2(0, 45)
+
+[node name="RayCast2D4" parent="Raycasts" index="2"]
+position = Vector2(12, -29)
+target_position = Vector2(0, 45)
+
+[node name="RayCast2D3" parent="Raycasts" index="3"]
+position = Vector2(1, -39)
+target_position = Vector2(0, 15)
+
+[node name="CollisionShape2D" parent="Overlap" index="0"]
+position = Vector2(3, 8)
+
+[node name="MouseDetector" parent="." index="5"]
+offset_left = -9.0
+offset_top = 0.0
+offset_right = 12.0
+offset_bottom = 16.0
+
+[node name="Effect" parent="." index="6"]
+position = Vector2(2, 2)
+
+[node name="CollisionShape2D" parent="Effect" index="0"]
+position = Vector2(0, 6)
 
 [connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]

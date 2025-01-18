@@ -145,8 +145,9 @@ func add_player(player: Node2D) -> void:
 		if max_players >= MAX_PLAYERS:
 			hint = "Maximum number of players is %d." % MAX_PLAYERS
 		push_warning("Cannot add player. %s" % hint)
+		print('fjfjfjfjfj')
 		return
-
+	
 	# Add the player to the players array so it can be accessed later.
 	players.append(player)
 

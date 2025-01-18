@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://boexvpqt6pqqy"]
+
+[ext_resource type="Script" path="res://Levels/control.gd" id="1_8e434"]
+[ext_resource type="PackedScene" uid="uid://ba5f2r7jjig5o" path="res://Levels/button.tscn" id="2_5jqw1"]
+[ext_resource type="PackedScene" uid="uid://wqlima43jeqt" path="res://Hazards/spike.tscn" id="3_50pko"]
+[ext_resource type="PackedScene" uid="uid://cetfjy7mo67yk" path="res://Hazards/switch.tscn" id="4_pj25n"]
+[ext_resource type="Script" path="res://Levels/panel.gd" id="5_t3skf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 506.0
+offset_right = 1204.0
+offset_bottom = 685.0
+size_flags_vertical = 8
+script = ExtResource("1_8e434")
+speed = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.150109, 0.29695, 0.317809, 1)
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Button" parent="Buttons" instance=ExtResource("2_5jqw1")]
+layout_mode = 2
+scene = ExtResource("3_50pko")
+
+[node name="Button4" parent="Buttons" instance=ExtResource("2_5jqw1")]
+layout_mode = 2
+scene = ExtResource("4_pj25n")
+text = "Button does things"
+
+[node name="Button5" parent="Buttons" instance=ExtResource("2_5jqw1")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+offset_right = 146.0
+offset_bottom = 31.0
+text = "Finished"
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 216.0
+offset_top = -502.0
+offset_right = 850.0
+offset_bottom = -414.0
+script = ExtResource("5_t3skf")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="toggled" from="Buttons/Button" to="." method="_on_button_toggled"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

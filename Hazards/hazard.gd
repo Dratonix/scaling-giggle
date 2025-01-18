@@ -3,11 +3,13 @@ class_name Hazard
 
 @export var grid_size = 32
 @export var block_type : int = 0
+@export var stationary : bool =false
 
 @onready var timer := $Timer
 @onready var raycasts := $Raycasts
 @onready var overlap := $Overlap
 
+var rotate := true
 
 enum tile_state{
 	DRAGGING,
@@ -18,10 +20,13 @@ enum tile_state{
 var state
 
 func _ready() -> void:
-	signals()
+	if !stationary:
+		signals()
 
 func _process(delta: float) -> void:
 	state_machine()
+	if stationary:
+		state=tile_state.FINISHED
 func set_stats() -> void:
 	pass
 
@@ -46,6 +51,18 @@ func state_machine() -> void:
 				queue_free()
 		tile_state.FINISHED:
 			Events.emit_signal("drag_ended")
+			if raycasts.get_child_count() == 0:
+					return
+			if raycasts.get_children()[1].is_colliding():
+				if raycasts.get_child_count() == 0:
+					return
+				rotation_degrees=90
+			elif  raycasts.get_children()[2].is_colliding():
+				if raycasts.get_child_count()==0:
+					return
+				rotation_degrees=-90
+			for raycast in raycasts.get_children():
+					raycast.enabled = false
 			if Input.is_action_just_pressed("rmb"):
 				pass
 

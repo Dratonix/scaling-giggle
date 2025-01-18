@@ -9,7 +9,7 @@ script/source = "extends TextureButton
 @export var blocks : int
 @export var scene : PackedScene
 @export var block_type : int
-
+@export var text : String
 
 func _ready() -> void:
 	self.connect(\"button_down\", _button_down)

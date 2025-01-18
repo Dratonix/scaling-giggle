@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://c5yx8x3v03bs7"
+path="res://.godot/imported/Falling.gif-f770585be73fe28dbb5ceb7aaccfebf5.tres"
+
+[deps]
+
+source_file="res://Platformer/Falling.gif"
+dest_files=["res://.godot/imported/Falling.gif-f770585be73fe28dbb5ceb7aaccfebf5.tres"]
+
+[params]
+
+frames_per_second=30

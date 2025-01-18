@@ -1,17 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://qvgn0vk3d8d7"]
+[gd_scene load_steps=3 format=3 uid="uid://bbljpwnkscrf4"]
 
-[ext_resource type="PackedScene" uid="uid://b533p6wrwgxuq" path="res://Hazards/hazard.tscn" id="1_h3hss"]
-[ext_resource type="Script" path="res://Hazards/bouncepad.gd" id="2_vfoxn"]
+[ext_resource type="Script" path="res://bouncepad.gd" id="1_ruf30"]
 
-[node name="Ice" instance=ExtResource("1_h3hss")]
-collision_mask = 7
-script = ExtResource("2_vfoxn")
-effect = 5000
-grid_size = 32
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5bnk"]
+size = Vector2(69, 30)
 
-[node name="Timer2" type="Timer" parent="." index="7"]
-wait_time = 0.2
+[node name="Bouncepad" type="Area2D" groups=["bounce"]]
+script = ExtResource("1_ruf30")
 
-[connection signal="body_entered" from="Effect" to="." method="_on_effect_body_entered"]
-[connection signal="body_exited" from="Effect" to="." method="_on_effect_body_exited"]
-[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(54, -8, -24, -4, -5, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(13.5, 9)
+shape = SubResource("RectangleShape2D_e5bnk")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

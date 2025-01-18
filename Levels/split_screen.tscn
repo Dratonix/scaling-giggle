@@ -1,13 +1,84 @@
-[gd_scene load_steps=2 format=3 uid="uid://rahh7xj821sr"]
+[gd_scene load_steps=3 format=3 uid="uid://rahh7xj821sr"]
 
-[ext_resource type="PackedScene" uid="uid://cnmvefkjnbhk8" path="res://UI/menu.tscn" id="1_yb7hm"]
+[ext_resource type="Script" path="res://Levels/split_screen.gd" id="1_txgu4"]
+[ext_resource type="PackedScene" uid="uid://cygf426363c4j" path="res://Levels/platformer_test_world.tscn" id="2_4pkv6"]
 
 [node name="Game" type="Node"]
+script = ExtResource("1_txgu4")
 
-[node name="Menu" parent="." instance=ExtResource("1_yb7hm")]
-offset_left = -1.0
-offset_top = -9.0
-offset_right = -1.0
-offset_bottom = -9.0
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = -1794.0
+offset_top = -2038.0
+offset_right = 5330.0
+offset_bottom = 2398.0
+color = Color(0, 0, 0, 1)
 
-[editable path="Menu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 2836.0
+offset_bottom = 675.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1200, 675)
+render_target_update_mode = 4
+
+[node name="Level1" parent="HBoxContainer/SubViewportContainer/ViewPort" instance=ExtResource("2_4pkv6")]
+position = Vector2(-4, -1)
+
+[node name="Camera1" type="Camera2D" parent="HBoxContainer/SubViewportContainer/ViewPort"]
+zoom = Vector2(0.76, 0.76)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ColorRect3" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+color = Color(0.161626, 2.08707e-05, 0.164733, 1)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="HBoxContainer/SubViewportContainer2"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(400, 675)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer2/ViewPort"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ColorRect2" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+color = Color(0.161626, 2.08707e-05, 0.164733, 1)
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="HBoxContainer/SubViewportContainer3"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(400, 675)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer3/ViewPort"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="body_entered" from="HBoxContainer/SubViewportContainer/ViewPort/Level1/Switch4/Bouncepad" to="HBoxContainer/SubViewportContainer/ViewPort/Level1/Switch4/Bouncepad" method="_on_body_entered"]
+[connection signal="body_exited" from="HBoxContainer/SubViewportContainer/ViewPort/Level1/Switch4/Bouncepad" to="HBoxContainer/SubViewportContainer/ViewPort/Level1/Switch4/Bouncepad" method="_on_body_exited"]
+[connection signal="button_down" from="HBoxContainer/SubViewportContainer/ViewPort/Level1/CanvasLayer/Control/Button" to="." method="_on_button_button_down"]
+
+[editable path="HBoxContainer/SubViewportContainer/ViewPort/Level1"]
+[editable path="HBoxContainer/SubViewportContainer/ViewPort/Level1/CanvasLayer/Control"]

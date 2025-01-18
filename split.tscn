@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvwhsxhtq1gi3"]
+
+[ext_resource type="Script" path="res://hbox_container.gd" id="1_cg1op"]
+[ext_resource type="PackedScene" uid="uid://cygf426363c4j" path="res://Levels/platformer_test_world.tscn" id="2_nka48"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_cg1op")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1200, 675)
+render_target_update_mode = 4
+
+[node name="Level1" parent="SubViewportContainer/ViewPort" instance=ExtResource("2_nka48")]
+position = Vector2(-4, -1)
+
+[node name="Camera1" type="Camera2D" parent="SubViewportContainer/ViewPort"]
+zoom = Vector2(1.3, 1.3)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+color = Color(0.161626, 2.08707e-05, 0.164733, 1)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="SubViewportContainer2"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1200, 675)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer2/ViewPort"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+color = Color(0.161626, 2.08707e-05, 0.164733, 1)
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="."]
+layout_mode = 2
+
+[node name="ViewPort" type="SubViewport" parent="SubViewportContainer3"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1200, 675)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer3/ViewPort"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
